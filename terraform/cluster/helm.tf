@@ -25,6 +25,13 @@ resource "helm_release" "minio" {
                     accessKey = var.minio_access_key
                     secretKey = var.minio_secret_key
                 }
+                pools = [
+                    {
+                        servers = 1
+                        name = "pool-0"
+                        size = "2Gi"
+                    }
+                ]
             }
         })
     ]
