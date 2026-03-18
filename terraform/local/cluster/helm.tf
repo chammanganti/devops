@@ -49,6 +49,22 @@ resource "helm_release" "minio" {
                     v1.min.io/tenant: minio
                   type: LoadBalancer
                 EOT
+                ,
+                <<-EOT
+                apiVersion: v1
+                kind: Service
+                metadata:
+                  name: minio-hl-lb
+                spec:
+                  ports:
+                  - name: https-minio
+                    port: 9000
+                    protocol: TCP
+                    targetPort: 9000
+                  selector:
+                    v1.min.io/tenant: minio
+                  type: LoadBalancer
+                EOT
             ]
         })
     ]
