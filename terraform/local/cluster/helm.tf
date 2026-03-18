@@ -33,6 +33,23 @@ resource "helm_release" "minio" {
                     }
                 ]
             }
+            extraResources = [
+                <<-EOT
+                apiVersion: v1
+                kind: Service
+                metadata:
+                  name: minio-console-lb
+                spec:
+                  ports:
+                  - name: https-console
+                    port: 9443
+                    protocol: TCP
+                    targetPort: 9443
+                  selector:
+                    v1.min.io/tenant: minio
+                  type: LoadBalancer
+                EOT
+            ]
         })
     ]
 }
