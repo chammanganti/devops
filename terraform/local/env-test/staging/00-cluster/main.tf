@@ -1,7 +1,7 @@
 terraform {
     backend "s3" {
         bucket = "tfstate"
-        key = "staging/terraform.tfstate"
+        key = "staging/00-cluster/terraform.tfstate"
         region = "us-east-1"
 
         skip_credentials_validation = true
@@ -15,7 +15,7 @@ terraform {
 }
 
 module "kind_cluster" {
-    source = "../modules/kind-cluster"
+    source = "../../modules/kind-cluster"
 
     name = "staging-cluster"
     kubeconfig_path = "${path.module}/kubeconfig"
