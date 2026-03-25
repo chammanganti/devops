@@ -43,6 +43,8 @@ resource "kubectl_manifest" "traefik_config" {
           traefik:
             expose:
               default: true
+        additionalArguments:
+          - "--entrypoints.websecure.forwardedHeaders.trustedIPs=127.0.0.1/32,10.42.0.0/16,192.168.0.0/16"
   YAML
 }
 
