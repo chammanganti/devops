@@ -63,10 +63,6 @@ spec:
             type: CharDevice
         {{- end }}
 
-        - name: ha-config
-          configMap:
-            name: {{ include "home-assistant.fullname" . }}-config
-
       containers:
         - name: homeassistant
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -74,6 +70,8 @@ spec:
 
           # Privileged required for USB device access and dbus
           securityContext:
+            runAsUser: 0
+            runAsGroup: 0
             privileged: true
             capabilities:
               add:
@@ -129,10 +127,6 @@ spec:
               mountPath: /dev/serial/by-id/{{ .byId }}
             {{- end }}
 
-            - name: ha-config
-              mountPath: /config/configuration.yaml
-              subPath: configuration.yaml
-
   {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
     - metadata:
@@ -140,7 +134,6 @@ spec:
         labels:
           {{- include "home-assistant.labels" . | nindent 10 }}
         annotations:
-          # Protect config data even if helm release is deleted
           helm.sh/resource-policy: keep
       spec:
         accessModes:
