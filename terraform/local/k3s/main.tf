@@ -95,3 +95,11 @@ resource "kubectl_manifest" "letsencrypt" {
 
   depends_on = [module.cert_manager]
 }
+
+resource "helm_release" "home_assistant" {
+  name             = "home-assistant"
+  chart            = "../../../k8s/home-assistant"
+  namespace        = "home-assistant"
+  create_namespace = true
+  wait             = true
+}
