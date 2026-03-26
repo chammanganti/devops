@@ -102,4 +102,6 @@ resource "helm_release" "home_assistant" {
   namespace        = "home-assistant"
   create_namespace = true
   wait             = true
+
+  depends_on = [module.cert_manager]
 }
