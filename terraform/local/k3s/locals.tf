@@ -1,4 +1,6 @@
 locals {
+  letsencrypt_issuer = "letsencrypt"
+
   minio_namespace                         = "minio"
   minio_console_tls_secret                = "minio-console-tls"
   minio_api_tls_secret                    = "minio-api-tls"

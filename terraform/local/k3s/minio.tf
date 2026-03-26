@@ -41,9 +41,9 @@ resource "kubectl_manifest" "minio_console_certificate" {
       name: ${local.minio_console_tls_secret}
       namespace: ${local.minio_namespace}
     spec:
-      secretName: minio-console-tls
+      secretName: ${local.minio_console_tls_secret}
       issuerRef:
-        name: letsencrypt
+        name: ${local.letsencrypt_issuer}
         kind: ClusterIssuer
       dnsNames:
         - ${var.minio_console_domain}
@@ -60,9 +60,9 @@ resource "kubectl_manifest" "minio_api_certificate" {
       name: ${local.minio_api_tls_secret}
       namespace: ${local.minio_namespace}
     spec:
-      secretName: minio-api-tls
+      secretName: ${local.minio_api_tls_secret}
       issuerRef:
-        name: letsencrypt
+        name: ${local.letsencrypt_issuer}
         kind: ClusterIssuer
       dnsNames:
         - ${var.minio_api_domain}

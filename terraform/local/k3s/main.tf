@@ -77,7 +77,7 @@ resource "kubectl_manifest" "letsencrypt" {
     apiVersion: cert-manager.io/v1
     kind: ClusterIssuer
     metadata:
-      name: letsencrypt
+      name: ${local.letsencrypt_issuer}
     spec:
       acme:
         email: ${var.acme_email}
