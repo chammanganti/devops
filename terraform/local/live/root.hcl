@@ -12,7 +12,7 @@ remote_state {
     bucket = "tfstate"
 
     key          = "${path_relative_to_include()}/terraform.tfstate"
-    region       = "us-east-1"
+    region       = "ap-southeast-1"
     endpoint     = local.s3_endpoint
     encrypt      = false
     use_lockfile = true
